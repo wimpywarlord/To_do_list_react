@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Person from "./Person/Person.js";
 
+
 class App extends Component {
     state = {
         persons: [
@@ -65,8 +66,16 @@ class App extends Component {
     };
 
     render() {
-        const style = {
-            backgroundColor: "whit e",
+        const style_show = {
+            backgroundColor: "green",
+            border: "2px solid black",
+            padding: "5px",
+            ":hover": {
+                backgroundColor: "salmon",
+            },
+        };
+        const style_hide = {
+            backgroundColor: "red",
             border: "2px solid black",
             padding: "5px",
         };
@@ -94,15 +103,30 @@ class App extends Component {
             );
         }
 
-        return (
-            <div className="App">
-                {this.state.showPersons ? persons : null}
+        let classes = [];
 
-                <button style={style} onClick={this.togglePersonHandler}>
-                    TOGGLE
-                </button>
-                <p>{this.state.count}</p>
-            </div>
+        if (this.state.persons.length <= 2) {
+            classes.push("white");
+        }
+        if (this.state.persons.length >= 3) {
+            classes.push("bold");
+        }
+        console.log(classes.join(" "));
+        return (
+        
+                <div className="App">
+                    {this.state.showPersons ? persons : null}
+
+                    <button
+                        className={classes.join(" ")}
+                        style={this.state.showPersons ? style_hide : style_show}
+                        onClick={this.togglePersonHandler}
+                    >
+                        TOGGLE
+                    </button>
+                    <p>{this.state.count}</p>
+                </div>
+          
         );
     }
 }
